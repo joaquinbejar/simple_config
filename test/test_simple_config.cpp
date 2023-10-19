@@ -194,7 +194,7 @@ TEST_CASE("Config operators std::string and <<", "[Config]") {
     setenv("TEST2", "12", 1);
     setenv("LOGLEVEL", "info", 1);
     BasicConfig config;
-    std::string s = (std::string) config;
+    auto s = (std::string) config;
     REQUIRE(s == R"({"loglevel":"info","test1":"test","test2":12})");
     std::stringstream ss;
     ss << config;

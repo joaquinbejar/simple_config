@@ -11,12 +11,14 @@ set(SIMPLE_CONFIG_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 message(STATUS "CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
 
 include(cmake/nlohmann_json.cmake)
+include(cmake/common.cmake)
 
 add_library(simple_config STATIC src/config.cpp include/simple_config/config.h)
 target_include_directories(simple_config
         PRIVATE
         ${SIMPLE_CONFIG_INCLUDE}
         ${NLOHMANN_JSON_INCLUDE}
+        ${COMMON_INCLUDE}
 )
 
 install(TARGETS simple_config DESTINATION lib)

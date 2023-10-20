@@ -30,12 +30,11 @@ namespace simple_config {
     class Config {
     public:
 
-        std::shared_ptr<std::string> loglevel = std::make_shared<std::string>(
-                common::get_env_variable_string("LOGLEVEL", "info"));
+        std::string loglevel = common::get_env_variable_string("LOGLEVEL", "info");
 
         [[maybe_unused]] [[nodiscard]] virtual bool validate() = 0;
 
-        [[nodiscard]] virtual std::string to_string() const = 0;
+        virtual std::string to_string() const = 0;
 
         [[nodiscard]] virtual json to_json() const = 0;
 

@@ -43,14 +43,14 @@ public:
     void from_json(const json &j) override {
         test1 = j["test1"];
         test2 = j["test2"];
-        loglevel = j["loglevel"];
+        *loglevel = j["loglevel"];
     }
 
     [[nodiscard]] json to_json() const override {
         json j;
         j["test1"] = test1;
         j["test2"] = test2;
-        j["loglevel"] = loglevel;
+        j["loglevel"] = *loglevel;
 
         return j;
     }
@@ -105,7 +105,7 @@ TEST_CASE("Declare config with env", "[Config]") {
     setenv("LOGLEVEL", "error", 1);
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(config.loglevel == "error");
+    REQUIRE(*config.loglevel == "error");
 }
 
 TEST_CASE("Declare config and test ENV Var string", "[Config]") {

@@ -19,6 +19,7 @@ target_include_directories(simple_config
         ${SIMPLE_CONFIG_INCLUDE}
         ${NLOHMANN_JSON_INCLUDE}
         ${COMMON_INCLUDE}
+        ${SIMPLE_COLOR_INCLUDE}
 )
 
 install(TARGETS simple_config DESTINATION lib)

@@ -29,8 +29,8 @@ public:
         return *this;
     }
 
-    std::string test1 = simple_config::get_env_variable_string("TEST1", "default");
-    int test2 = simple_config::get_env_variable_int("TEST2", 0);
+    std::string test1 = common::get_env_variable_string("TEST1", "default");
+    int test2 = common::get_env_variable_int("TEST2", 0);
 
     [[nodiscard]] bool validate() override {
         return true;
@@ -43,28 +43,28 @@ public:
     void from_json(const json &j) override {
         test1 = j["test1"];
         test2 = j["test2"];
-        *loglevel = j["loglevel"];
+        loglevel = j["loglevel"];
     }
 
     [[nodiscard]] json to_json() const override {
         json j;
         j["test1"] = test1;
         j["test2"] = test2;
-        j["loglevel"] = *loglevel;
+        j["loglevel"] = loglevel;
 
         return j;
     }
 
     static int public_get_env_variable_int(std::string const &key, int const &default_value) {
-        return simple_config::get_env_variable_int(key, default_value);
+        return common::get_env_variable_int(key, default_value);
     }
 
     static std::string public_get_env_variable_string(std::string const &key, std::string const &default_value) {
-        return simple_config::get_env_variable_string(key, default_value);
+        return common::get_env_variable_string(key, default_value);
     }
 
     static bool public_get_env_variable_bool(std::string const &key, bool const &default_value) {
-        return simple_config::get_env_variable_bool(key, default_value);
+        return common::get_env_variable_bool(key, default_value);
     }
 
 
@@ -72,8 +72,8 @@ public:
 
 class BasicConfigWithError : public simple_config::Config {
 public:
-    std::string test1 = simple_config::get_env_variable_string("TEST1", "default");
-    int test2 = simple_config::get_env_variable_int("TEST2", 0);
+    std::string test1 = common::get_env_variable_string("TEST1", "default");
+    int test2 = common::get_env_variable_int("TEST2", 0);
 
     [[nodiscard]] bool validate() override {
         return true;
@@ -105,35 +105,35 @@ TEST_CASE("Declare config with env", "[Config]") {
     setenv("LOGLEVEL", "error", 1);
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(*config.loglevel == "error");
+    REQUIRE(config.loglevel == "error");
 }
 
 TEST_CASE("Declare config and test ENV Var string", "[Config]") {
     setenv("TEST", "test", 1);
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(simple_config::get_env_variable_string("TEST", "default") == "test");
+    REQUIRE(common::get_env_variable_string("TEST", "default") == "test");
 }
 
 TEST_CASE("Declare config and test ENV Var int", "[Config]") {
     setenv("TEST", "1", 1);
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(simple_config::get_env_variable_int("TEST", 0) == 1);
+    REQUIRE(common::get_env_variable_int("TEST", 0) == 1);
 }
 
 TEST_CASE("Declare config and test ENV Var bool", "[Config]") {
     setenv("TEST", "true", 1);
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(simple_config::get_env_variable_bool("TEST", false) == true);
+    REQUIRE(common::get_env_variable_bool("TEST", false) == true);
 }
 
 TEST_CASE("Declare config and test ENV Var bool default", "[Config]") {
     unsetenv("TEST");
     BasicConfig config;
     REQUIRE(config.validate());
-    REQUIRE(simple_config::get_env_variable_bool("TEST", false) == false);
+    REQUIRE(common::get_env_variable_bool("TEST", false) == false);
 }
 
 TEST_CASE("Declare config and test ENV Var using with default", "[Config]") {

@@ -34,7 +34,7 @@ namespace simple_config {
 
         [[maybe_unused]] [[nodiscard]] virtual bool validate() = 0;
 
-        virtual std::string to_string() const = 0;
+        [[nodiscard]] virtual std::string to_string() const = 0;
 
         [[nodiscard]] virtual json to_json() const = 0;
 

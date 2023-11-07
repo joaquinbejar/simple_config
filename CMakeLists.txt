@@ -37,7 +37,7 @@ target_include_directories(simple_config
 install(TARGETS simple_config DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 
-option(NO_SIMPLE_CONFIG_TESTS "Disable Current tests" OFF)
+option(NO_SIMPLE_CONFIG_TESTS "simple_config Disable Current tests" OFF)
 
 if (NOT NO_SIMPLE_CONFIG_TESTS)
     include(FetchContent)

@@ -11,8 +11,16 @@ if (CMAKE_DEBUG)
     message(STATUS "simple_config CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
 endif ()
 
-add_library(simple_config STATIC src/config.cpp)
-target_include_directories(simple_config PUBLIC ${SIMPLE_CONFIG_INCLUDE})
+add_library(simple_config STATIC
+        include/simple_config/config.h
+        src/config.cpp
+)
+target_include_directories(simple_config
+        PUBLIC
+        ${SIMPLE_CONFIG_INCLUDE}
+        ${COMMON_INCLUDE}
+        ${NLOHMANN_JSON_INCLUDE}
+)
 
 install(TARGETS simple_config DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)

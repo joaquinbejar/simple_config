@@ -4,5 +4,9 @@ FetchContent_Declare(common
         GIT_TAG dev
         )
 FetchContent_MakeAvailable(common)
-message(STATUS "COMMON_SOURCE_DIR ${common_SOURCE_DIR}")
+
+if (CMAKE_DEBUG)
+        message(STATUS "simple_config/cmake COMMON_SOURCE_DIR ${common_SOURCE_DIR}")
+endif ()
+
 set(COMMON_INCLUDE ${common_SOURCE_DIR}/include CACHE INTERNAL "")

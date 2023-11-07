@@ -4,23 +4,15 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(simple_config)
 
-
-
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 set(SIMPLE_CONFIG_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-message(STATUS "CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
 
-include(cmake/nlohmann_json.cmake)
-include(cmake/common.cmake)
+if (CMAKE_DEBUG)
+    message(STATUS "simple_config CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
+endif ()
 
-add_library(simple_config STATIC src/config.cpp include/simple_config/config.h)
-target_include_directories(simple_config
-        PRIVATE
-        ${SIMPLE_CONFIG_INCLUDE}
-        ${NLOHMANN_JSON_INCLUDE}
-        ${COMMON_INCLUDE}
-        ${SIMPLE_COLOR_INCLUDE}
-)
+add_library(simple_config STATIC src/config.cpp)
+target_include_directories(simple_config PUBLIC ${SIMPLE_CONFIG_INCLUDE})
 
 install(TARGETS simple_config DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)

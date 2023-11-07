@@ -21,6 +21,7 @@ add_library(simple_config STATIC
         src/config.cpp
 )
 if (CMAKE_DEBUG)
+    message(STATUS "simple_config SIMPLE_COLOR_INCLUDE ${SIMPLE_COLOR_INCLUDE}")
     message(STATUS "simple_config CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
     message(STATUS "simple_config SIMPLE_CONFIG_INCLUDE ${SIMPLE_CONFIG_INCLUDE}")
     message(STATUS "simple_config COMMON_INCLUDE ${COMMON_INCLUDE}")
@@ -30,8 +31,9 @@ endif ()
 target_include_directories(simple_config
         PUBLIC
         ${SIMPLE_CONFIG_INCLUDE}
-        ${COMMON_INCLUDE}
         ${NLOHMANN_JSON_INCLUDE}
+        ${COMMON_INCLUDE}
+        ${SIMPLE_COLOR_INCLUDE}
 )
 
 install(TARGETS simple_config DESTINATION lib)

@@ -8,7 +8,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 set(SIMPLE_CONFIG_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 include(cmake/nlohmann_json.cmake)
-include(cmake/simple_color.cmake)
 include(cmake/common.cmake)
 
 
